@@ -9,18 +9,18 @@ class Search extends EventEmitter {
 
   async searchCount(query) {
     try {
-      this.emit("SEARCH_STARTED", searchTerm); 
+      this.emit("SEARCH_STARTED", {term:query}); 
 
-       if(query === undefined){
+       if(!query){
         this.emit("SEARCH_ERROR",   {message: 'INVALID_TERM', term : searchTerm}); 
         return
        }
 
       const count = await API.countMatches(query);
-      this.emit('data', {count: count, term : searchTerm});
-      
+      this.emit('SEARCH_SUCCESS', {count: count, term : searchTerm});
+
     } catch (err) {
-      this.emit('error',   {message: err.message, term : searchTerm}); 
+      this.emit('SEARCH_ERROR',   {message: err.message, term : searchTerm}); 
     }
   }
 }
