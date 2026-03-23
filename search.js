@@ -12,15 +12,15 @@ class Search extends EventEmitter {
       this.emit("SEARCH_STARTED", query); 
 
        if(!query){
-        this.emit("SEARCH_ERROR",   {message: 'INVALID_TERM', term : searchTerm}); 
+        this.emit("SEARCH_ERROR",   {message: 'INVALID_TERM', term : query}); 
         return
        }
 
       const count = await API.countMatches(query);
-      this.emit('SEARCH_SUCCESS', {count: count, term : searchTerm});
+      this.emit('SEARCH_SUCCESS', {count: count, term : query});
 
     } catch (err) {
-      this.emit('SEARCH_ERROR',   {message: err.message, term : searchTerm}); 
+      this.emit('SEARCH_ERROR',   {message: err.message, term : query}); 
     }
   }
 }
