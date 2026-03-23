@@ -9,11 +9,11 @@ class Search extends EventEmitter {
 
   async searchCount(query) {
     try {
-        if(query === undefined){
+        if(!query){
          this.emit("SEARCH_ERROR",   {message: 'INVALID_TERM', term : query}); 
          return
         }
-        
+
       this.emit("SEARCH_STARTED", query); 
 
 
